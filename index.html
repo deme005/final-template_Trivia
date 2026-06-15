@@ -1,52 +1,73 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Project Name</title>
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trivia Arena - Home</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>🎯 Simple Trivia Arena</h1>
+      <nav>
+        <a href="index.html" class="active">Lobby</a>
+        <a href="arena.html">Play Game</a>
+        <a href="leaderboard.html">Leaderboard</a>
+      </nav>
+    </header>
 
-  <header>
-    <nav>
-      <span class="nav__logo">Project Name</span>
-      <div class="nav__links">
-        <a href="index.html">Search</a>
-        <a href="saved.html">Saved</a>
-      </div>
-      <div class="nav__actions">
-        <span id="nav-user"></span>
-        <button id="logout-btn" type="button">Logout</button>
-      </div>
-    </nav>
-  </header>
+    <main>
+      <section class="form-container">
+        <h2>Player Registration & Setup</h2>
+        <p>Fill out the setup below to start your quiz session.</p>
 
-  <main>
+        <form id="setupForm">
+          <!-- Input Type 1: Text -->
+          <div class="form-group">
+            <label id="nameLabel" for="username">Player Nickname:</label>
+            <input
+              type="text"
+              id="username"
+              required
+              minlength="3"
+              maxlength="15"
+              placeholder="e.g. Player1"
+            />
+          </div>
 
-    <!-- search / filter form -->
-    <section>
-      <form id="search-form">
-        <!-- add your inputs here (at least 3 different types) -->
-        <button type="submit">Search</button>
-      </form>
-    </section>
+          <!-- Input Type 2: Number -->
+          <div class="form-group">
+            <label for="amount">Number of Questions:</label>
+            <input
+              type="number"
+              id="amount"
+              min="5"
+              max="20"
+              value="5"
+              required
+            />
+          </div>
 
-    <!-- loading and error states -->
-    <p id="loading-msg" hidden>Loading…</p>
-    <p id="error-msg" hidden></p>
+          <!-- Input Type 3: Select Dropdown -->
+          <div class="form-group">
+            <label for="category">Choose Category:</label>
+            <select id="category">
+              <option value="9">General Knowledge</option>
+              <option value="11">Movies/Film</option>
+              <option value="17">Science & Nature</option>
+              <option value="23">History</option>
+            </select>
+          </div>
 
-    <!-- dynamically generated cards land here -->
-    <section>
-      <div id="results-grid"></div>
-    </section>
+          <button type="submit" id="startBtn">Save Setup & Go to Arena</button>
+        </form>
 
-  </main>
+        <div id="formFeedback" class="feedback-msg"></div>
+      </section>
+    </main>
 
-  <footer>
-    <!-- footer content -->
-  </footer>
-
-  <script type="module" src="js/main.js"></script>
-</body>
+    <footer>
+      <p>&copy; 2026 Web Engineering Capstone Project. Built from scratch.</p>
+    </footer>
+  </body>
 </html>
