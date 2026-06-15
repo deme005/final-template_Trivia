@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trivia Arena - Leaderboard</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>🎯 Simple Trivia Arena</h1>
+      <nav>
+        <a href="index.html">Lobby</a>
+        <a href="arena.html">Play Game</a>
+        <a href="leaderboard.html" class="active">Leaderboard</a>
+      </nav>
+    </header>
+
+    <main>
+      <section>
+        <h2>🏆 Score Leaderboard</h2>
+        <p>
+          Scores are saved directly inside your browser's LocalStorage memory.
+        </p>
+
+        <table id="leaderboardTable">
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Player Name</th>
+              <th>Score Obtained</th>
+              <th>Date Played</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboardBody">
+            <!-- Dynamic rows inserted here -->
+          </tbody>
+        </table>
+
+        <button id="clearScoresBtn">Reset Leaderboard</button>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2026 Web Engineering Capstone Project. Built from scratch.</p>
+    </footer>
+
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>
