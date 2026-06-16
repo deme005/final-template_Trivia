@@ -21,3 +21,75 @@ body {
   flex-direction: column;
   min-height: 100vh;
 }
+header {
+  background-color: var(--primary-blue);
+  color: white;
+  padding: 25px 15px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+  margin-bottom: 15px;
+  font-size: 1.8rem;
+  letter-spacing: 0.5px;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+nav a {
+  color: #e0e6ed;
+  text-decoration: none;
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+nav a:hover {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+nav a.active {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.4);
+  font-weight: bold;
+}
+
+main {
+  flex: 1;
+  padding: 40px 20px;
+  max-width: 750px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+section {
+  background: var(--card-bg);
+  padding: 30px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  margin-bottom: 25px;
+}
+
+h2 {
+  margin-bottom: 20px;
+  color: var(--primary-blue);
+  font-size: 1.4rem;
+  border-bottom: 2px solid var(--light-gray);
+  padding-bottom: 10px;
+}
+
+p {
+  margin-bottom: 20px;
+  line-height: 1.5;
+  color: #555;
+}
