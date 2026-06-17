@@ -119,3 +119,73 @@ function displayQuestionCard() {
     optionsGrid.appendChild(optionButton);
   });
 }
+
+function handleSelectedAnswer(selected, correct) {
+  if (selected === correct) {
+    sessionScoreTracker.addPoint();
+    alert("Correct choice option!");
+  } else {
+    alert(`Incorrect option selected! Correct response path was: ${correct}`);
+  }
+  gameState.currentIndex += 1;
+  if (gameState.currentIndex < gameState.questionsArray.length) {
+    displayQuestionCard();
+  } else {
+    terminateGameSession();
+  }
+}
+
+function terminateGameSession() {
+  document.getElementById("quizBox").classList.add("hidden");
+  const resultBox = document.getElementById("resultBox");
+  resultBox.classList.remove("hidden");
+  const textTarget = document.getElementById("finalScoreText");
+  const finalScore = sessionScoreTracker.readPoints();
+  textTarget.textContent = `${gameState.username}, your final performance profile returned: ${finalScore} / ${gameState.questionsArray.length} items mapped perfectly.`;
+  const saveBtn = document.getElementById("saveScoreBtn");
+  saveBtn.addEventListener(
+    "click",
+    () => {
+      saveSessionToLeaderboard(gameState.username, finalScore);
+      saveBtn.disabled = true;
+      saveBtn.textContent = "Data Committed Safely!";
+    },
+    { once: true },
+  );
+}
+
+function saveSessionToLeaderboard(name, score) {
+  let existingRecords =
+    JSON.parse(localStorage.getItem("scoreboard_data")) || [];
+  let currentPayload = {
+    name: name,
+    points: score,
+    date: new Date().toLocaleDateString(),
+  };
+  existingRecords.push(currentPayload);
+  localStorage.setItem("scoreboard_data", JSON.stringify(existingRecords));
+}
+
+function renderLeaderboardRecords() {
+  const targetBody = document.getElementById("leaderboardBody");
+  if (!targetBody) return;
+  targetBody.innerHTML = "";
+  let dataSet = JSON.parse(localStorage.getItem("scoreboard_data")) || [];
+  dataSet.sort((itemA, itemB) => itemB.points - itemA.points);
+  if (dataSet.length === 0) {
+    const singleRow = document.createElement("tr");
+    singleRow.innerHTML = `<td colspan="4" style="text-align:center;">No records committed to LocalStorage memory array yet.</td>`;
+    targetBody.appendChild(singleRow);
+    return;
+  }
+  dataSet.forEach((entry, index) => {
+    const dataRow = document.createElement("tr");
+    dataRow.innerHTML = `
+            <td><strong>#${index + 1}</strong></td>
+            <td>${entry.name}</td>
+            <td>${entry.points} Points</td>
+            <td>${entry.date}</td>
+        `;
+    targetBody.appendChild(dataRow);
+  });
+}
