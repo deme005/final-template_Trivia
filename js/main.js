@@ -73,3 +73,49 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+async function loadTriviaData() {
+  const loading = document.getElementById("loadingIndicator");
+  const errorBox = document.getElementById("errorMessage");
+  const quizBox = document.getElementById("quizBox");
+  loading.classList.remove("hidden");
+  errorBox.classList.add("hidden");
+  try {
+    const questions = await fetchQuestions(
+      gameState.maxQuestions,
+      gameState.categoryID,
+    );
+    gameState.questionsArray = questions;
+    loading.classList.add("hidden");
+    quizBox.classList.remove("hidden");
+    displayQuestionCard();
+  } catch (err) {
+    loading.classList.add("hidden");
+    errorBox.textContent = `Application System Warning: ${err.message}`;
+    errorBox.classList.remove("hidden");
+  }
+}
+
+function displayQuestionCard() {
+  const currentQuestion = gameState.questionsArray[gameState.currentIndex];
+  document.getElementById("currentNum").textContent =
+    `${gameState.currentIndex + 1} / ${gameState.questionsArray.length}`;
+  document.getElementById("scoreDisplay").textContent =
+    `Score: ${sessionScoreTracker.readPoints()}`;
+  const questionTextEl = document.getElementById("questionText");
+  questionTextEl.innerHTML = currentQuestion.question;
+  const optionsGrid = document.getElementById("answerButtons");
+  optionsGrid.innerHTML = "";
+  let optionsList = [...currentQuestion.incorrect_answers];
+  const insertionPoint = Math.floor(Math.random() * (optionsList.length + 1));
+  optionsList.splice(insertionPoint, 0, currentQuestion.correct_answer);
+  optionsList.forEach((textOption) => {
+    const optionButton = document.createElement("button");
+    optionButton.className = "answer-btn";
+    optionButton.innerHTML = textOption;
+    optionButton.addEventListener("click", () =>
+      handleSelectedAnswer(textOption, currentQuestion.correct_answer),
+    );
+    optionsGrid.appendChild(optionButton);
+  });
+}
